@@ -10,20 +10,22 @@ import static org.junit.Assert.*;
  */
 public class PolynomialTermTest {
 
-    private PolynomialTerm polyTest;
+    private PolynomialTerm polyTermTest;
     private PolynomialTerm polynomialTermToCalculateWith;
+    private PolynomialTerm polynomialTermToCalculateWithTwo;
 
     @Before
     public void setup(){
-        polyTest = new PolynomialTerm(1.0d, 2);
+        polyTermTest = new PolynomialTerm(1.0d, 2);
         polynomialTermToCalculateWith = new PolynomialTerm(1.0d, 2);
+        polynomialTermToCalculateWithTwo = new PolynomialTerm(4.0d, 3);
     }
 
     @Test
     public void add() throws Exception {
         PolynomialTerm expectedPolynomialTerm = new PolynomialTerm(2.0d, 2);
 
-        PolynomialTerm newPolyTerm = polyTest.add(polynomialTermToCalculateWith);
+        PolynomialTerm newPolyTerm = polyTermTest.add(polynomialTermToCalculateWith);
 
         assertEquals(expectedPolynomialTerm, newPolyTerm);
     }
@@ -32,9 +34,19 @@ public class PolynomialTermTest {
     public void subtract() throws Exception {
         PolynomialTerm expectedPolynomialTerm = new PolynomialTerm(0.0d, 2);
 
-        PolynomialTerm polySubtractedTerm = polyTest.subtract(polynomialTermToCalculateWith);
+        PolynomialTerm polySubtractedTerm = polyTermTest.subtract(polynomialTermToCalculateWith);
 
         assertEquals(expectedPolynomialTerm, polySubtractedTerm);
+    }
+    @Test
+    public void multiply() throws Exception {
+        PolynomialTerm expectedPolynomialTerm = new PolynomialTerm(4.0d, 5);
+
+        PolynomialTerm newMultipliedTerm = polyTermTest.multiply(polynomialTermToCalculateWithTwo);
+
+        assertEquals(expectedPolynomialTerm, newMultipliedTerm);
+
+
     }
 
 }

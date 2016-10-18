@@ -14,7 +14,6 @@ public class PolynomialTerm {
         //coefficient from PolynomialTerm Class = coefficient with value from outside
         this.coefficient = coefficient;
         this.exponent = exponent;
-
     }
 
     /**
@@ -26,7 +25,7 @@ public class PolynomialTerm {
         if (exponent.equals(termToAdd.getExponent())) {
             double newCoefficient = this.coefficient + termToAdd.getCoefficient();
             return new PolynomialTerm(newCoefficient, exponent);
-        } else {
+            } else {
             throw new IllegalArgumentException("You cannot add polynomial terms with unequal exponents.");
         }
     }
@@ -45,6 +44,20 @@ public class PolynomialTerm {
         }
     }
 
+    /**
+     * Multplies termToMultiply with current term
+     * @param termToMultiply term which is multiplied
+     * @return new term which is the result of the multiplication of the two terms
+     */
+    public PolynomialTerm multiply(PolynomialTerm termToMultiply){
+        double newCoefficient = this.coefficient * termToMultiply.getCoefficient();
+        int newExponent = this.exponent + termToMultiply.getExponent();
+        if (newExponent < 7) {                                              //Hard coded 7, still ok?
+            return new PolynomialTerm(newCoefficient, newExponent);
+        } else {
+            throw new IllegalArgumentException("The maximum grade of polynomials calculated in this program is six.");
+        }
+    }
 
 
 
