@@ -9,8 +9,6 @@ import java.util.Arrays;
  */
 public class Polynomial {
 
-
-
     public static final int MAX_POLYNOMIAL_GRADE_PLUS_ONE = 7; // plus one because we need the 0 too!
 
     private PolynomialTerm[] polynomialTerms;

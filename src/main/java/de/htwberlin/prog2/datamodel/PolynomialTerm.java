@@ -59,8 +59,6 @@ public class PolynomialTerm {
         }
     }
 
-
-
     public Double getCoefficient() {
         return coefficient;
     }

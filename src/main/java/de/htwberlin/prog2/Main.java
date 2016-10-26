@@ -38,8 +38,8 @@ public class Main {
         PolynomialTerm[] polyTestY = {new PolynomialTerm(9.0d, 0), new PolynomialTerm(3.0d, 1)}; //Gleicher Fehler wie bei polyTestX
         System.out.println(polyTestY);
 
-        //Example exampleBanane = new Example();
-        //exampleBanane.example();
+        Example exampleBanane = new Example();
+        exampleBanane.example();
 
         //Polynomial polynomial1 = new Polynomial();
 
