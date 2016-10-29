@@ -16,6 +16,10 @@ public class PolynomialTerm {
         this.exponent = exponent;
     }
 
+    public PolynomialTerm(){
+        //default constructor to avoid null pointer exception ????????
+    }
+
     /**
      * Adds termToAdd to current term
      * @param termToAdd term which is added
@@ -53,8 +57,11 @@ public class PolynomialTerm {
         double newCoefficient = this.coefficient * termToMultiply.getCoefficient();
         int newExponent = this.exponent + termToMultiply.getExponent();
         if (newExponent < 7) {                                              //Hard coded 7, still ok?
-            return new PolynomialTerm(newCoefficient, newExponent);
-        } else {
+            return new PolynomialTerm(newCoefficient, newExponent); //Bis hier wird noch richtig gerechnet, aber es scheint nicht rchtig zurückgegeben zu werden
+        }
+        if (newCoefficient == 0){
+            return new PolynomialTerm(0.0d, 0);
+        }else {
             throw new IllegalArgumentException("The maximum grade of polynomials calculated in this program is six.");
         }
     }

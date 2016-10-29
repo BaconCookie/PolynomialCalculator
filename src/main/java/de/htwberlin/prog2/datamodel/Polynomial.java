@@ -15,10 +15,16 @@ public class Polynomial {
 
     public Polynomial() {
         polynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE]; //constructs an array of polynomialTerms terms, length 7
-        for (int i = 0; i < polynomialTerms.length; i++){
-            polynomialTerms[i] = new PolynomialTerm(0, 0);
-        }
+        polynomialTerms = fillPolynomialTermsWithDefaultValues(polynomialTerms);
     }
+
+    private PolynomialTerm[] fillPolynomialTermsWithDefaultValues(PolynomialTerm[] polynomialTerms) {
+        for (int i = 0; i < polynomialTerms.length; i++) {
+            polynomialTerms[i] = new PolynomialTerm(0, i);
+        }
+        return polynomialTerms;
+    }
+
     public Polynomial(PolynomialTerm[] polynomialTerms) {
         this();
         for (PolynomialTerm currentTerm : polynomialTerms) {
@@ -35,6 +41,7 @@ public class Polynomial {
 
     /**
      * Method which adds the terms of two polynomials with a matching exponent
+     *
      * @param polynomialToAdd polynomial which is being added to the current polynomial
      * @return new polynomial object called sumOfPolynomialTerms
      */
@@ -54,46 +61,60 @@ public class Polynomial {
         return new Polynomial(sumOfPolynomialTerms);
     }
 
-    /**Method which multiplies two polynomials with a maximum final grade of six
+    /**
+     * Method which multiplies two polynomials with a maximum final grade of six
+     *
      * @param polynomialToMultiply polynomial which is being multiplied with the current polynomial
      * @return new polynomial object called multipliedPolynomialTerms
      */
     public Polynomial multiply(Polynomial polynomialToMultiply) {
         PolynomialTerm[] multipliedPolynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
+        multipliedPolynomialTerms = fillPolynomialTermsWithDefaultValues(multipliedPolynomialTerms);
+
         PolynomialTerm[] polynomialTermsToMultiply = polynomialToMultiply.getPolynomialTerms();
 
-        for (int i = 0; i < polynomialTermsToMultiply.length; i++)  {
+        for (int i = 0; i < polynomialTermsToMultiply.length; i++) {
             PolynomialTerm currentOwnTerm = polynomialTerms[i];
 
-            for (int j = 0; j < polynomialTermsToMultiply.length; j++){
+            for (int j = 0; j < polynomialTermsToMultiply.length; j++) {
                 PolynomialTerm currentTermToMultiply = polynomialTermsToMultiply[j];
                 PolynomialTerm multipliedTerm = currentOwnTerm.multiply(currentTermToMultiply);
                 int placeInPolynomial = multipliedTerm.getExponent();
                 switch (placeInPolynomial) {
-                    case 0: multipliedPolynomialTerms[0] = multipliedPolynomialTerms[0].add(multipliedTerm);
+                    case 0:
+                        multipliedPolynomialTerms[0] = multipliedPolynomialTerms[0].add(multipliedTerm);
                         break;
-                    case 1: multipliedPolynomialTerms[1] = multipliedPolynomialTerms[1].add(multipliedTerm);
+                    case 1:
+                        multipliedPolynomialTerms[1] = multipliedPolynomialTerms[1].add(multipliedTerm);
                         break;
-                    case 2: multipliedPolynomialTerms[2] = multipliedPolynomialTerms[2].add(multipliedTerm);
+                    case 2:
+                        multipliedPolynomialTerms[2] = multipliedPolynomialTerms[2].add(multipliedTerm);
                         break;
-                    case 3: multipliedPolynomialTerms[3] = multipliedPolynomialTerms[3].add(multipliedTerm);
+                    case 3:
+                        multipliedPolynomialTerms[3] = multipliedPolynomialTerms[3].add(multipliedTerm);
                         break;
-                    case 4: multipliedPolynomialTerms[4] = multipliedPolynomialTerms[4].add(multipliedTerm);
+                    case 4:
+                        multipliedPolynomialTerms[4] = multipliedPolynomialTerms[4].add(multipliedTerm);
                         break;
-                    case 5: multipliedPolynomialTerms[5] = multipliedPolynomialTerms[5].add(multipliedTerm);
+                    case 5:
+                        multipliedPolynomialTerms[5] = multipliedPolynomialTerms[5].add(multipliedTerm);
                         break;
-                    case 6: multipliedPolynomialTerms[6] = multipliedPolynomialTerms[6].add(multipliedTerm);
+                    case 6:
+                        multipliedPolynomialTerms[6] = multipliedPolynomialTerms[6].add(multipliedTerm);
                         break;
-                    default: throw new IllegalArgumentException("This polynomial term could not be multiplied in this program: Error.");
+                    default:
+                        throw new IllegalArgumentException("This polynomial term could not be multiplied in this program: Error.");
                 }
             }
         }
-       return new Polynomial(multipliedPolynomialTerms);
+        return new Polynomial(multipliedPolynomialTerms);
     }
+
     /**
      * Boolean to check if exponents of two terms to add are matching
+     *
      * @param currentTermToCalculateWith term to add which is found in current index of polynomial to add
-     * @param currentOwnTerm term which is found in current index of own polynomial
+     * @param currentOwnTerm             term which is found in current index of own polynomial
      * @return true if exponents are the same number
      */
     private boolean hasSameExponent(PolynomialTerm currentTermToCalculateWith, PolynomialTerm currentOwnTerm) {
