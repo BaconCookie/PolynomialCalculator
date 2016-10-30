@@ -49,9 +49,10 @@ public class PolynomialTerm {
     }
 
     /**
-     * Multplies termToMultiply with current term
+     * Multplies termToMultiply with current term, with a max. newExponent of 6
+     * If the new Exponent is 7 or more and the newCoefficient also is > 0, this method throws an new IllegalArgumentException
      * @param termToMultiply term which is multiplied
-     * @return new term which is the result of the multiplication of the two terms
+     * @return new term which is the result of the multiplication of the two terms (newCoefficient, max. newExponent of 6)
      */
     public PolynomialTerm multiply(PolynomialTerm termToMultiply){
         double newCoefficient = this.coefficient * termToMultiply.getCoefficient();

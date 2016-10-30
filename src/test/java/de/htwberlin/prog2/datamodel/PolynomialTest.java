@@ -52,7 +52,7 @@ public class PolynomialTest {
         polyTest3 = new Polynomial(polyTermTest3);
 
         polyTest4 = new Polynomial();
-        Polynomial polySubtractedTerm = new Polynomial();
+
     }
 
     @Test
@@ -67,10 +67,27 @@ public class PolynomialTest {
         expAddedTerms[6] = new PolynomialTerm(5.0d, 6);
         Polynomial expectedAddedPolynomial = new Polynomial(expAddedTerms);
 
-        Polynomial actualPolynomial = polyTest1.add(polyTest2);
+        Polynomial actualAddedPolynomial = polyTest1.add(polyTest2);
 
-        assertEquals(expectedAddedPolynomial, actualPolynomial);
+        assertEquals(expectedAddedPolynomial, actualAddedPolynomial);
 
+    }
+
+    @Test
+    public void subtract() throws Exception {
+        PolynomialTerm[] expSubTerms = new PolynomialTerm[7];
+        expSubTerms[0] = new PolynomialTerm(0.0, 0);
+        expSubTerms[1] = new PolynomialTerm(-1.0, 1);
+        expSubTerms[2] = new PolynomialTerm(3.0, 2);
+        expSubTerms[3] = new PolynomialTerm(1.0, 3);
+        expSubTerms[4] = new PolynomialTerm(-2.0, 4);
+        expSubTerms[5] = new PolynomialTerm(-4.0, 5);
+        expSubTerms[6] = new PolynomialTerm(-5.0, 6);
+        Polynomial expectedSubtractedPolynomial = new Polynomial(expSubTerms);
+
+        Polynomial actualSubtractedPolynomial = polyTest1.subtract(polyTest2);
+
+        assertEquals(expectedSubtractedPolynomial, actualSubtractedPolynomial);
     }
 
     @Test

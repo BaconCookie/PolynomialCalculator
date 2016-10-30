@@ -43,13 +43,13 @@ public class Polynomial {
      * Method which adds the terms of two polynomials with a matching exponent
      *
      * @param polynomialToAdd polynomial which is being added to the current polynomial
-     * @return new polynomial object called sumOfPolynomialTerms
+     * @return new polynomial object which includes PolynomialTerm Array called sumOfPolynomialTerms
      */
     public Polynomial add(Polynomial polynomialToAdd) {
         PolynomialTerm[] sumOfPolynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         PolynomialTerm[] polynomialTermsToAdd = polynomialToAdd.getPolynomialTerms();
 
-        for (int i = 0; i < polynomialTermsToAdd.length; i++) {
+        for (int i = 0; i < sumOfPolynomialTerms.length; i++) {
             PolynomialTerm currentTermToAdd = polynomialTermsToAdd[i];
             PolynomialTerm currentOwnTerm = polynomialTerms[i];
             if (hasSameExponent(currentTermToAdd, currentOwnTerm)) {
@@ -61,6 +61,27 @@ public class Polynomial {
         return new Polynomial(sumOfPolynomialTerms);
     }
 
+    /**
+     * Method which subtracts the terms of two polynomials with a matching exponent
+     *
+     * @param polynomialToSubtract polynomial which is being subtracted from the current polynomial
+     * @return new polynomial object called which includes PolynomialTerm Array called subtractedPolynomialTerms
+     */
+    public Polynomial subtract(Polynomial polynomialToSubtract) {
+        PolynomialTerm[] subtractedPolynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
+        PolynomialTerm[] polynomialTermsToSubtract = polynomialToSubtract.getPolynomialTerms();
+
+        for (int i = 0; i < subtractedPolynomialTerms.length; i++) {
+            PolynomialTerm currentTermToSubtract = polynomialTermsToSubtract[i];
+            PolynomialTerm currentOwnTerm = polynomialTerms[i];
+            if (hasSameExponent(currentTermToSubtract, currentOwnTerm)) {
+                subtractedPolynomialTerms[i] = currentOwnTerm.subtract(currentTermToSubtract);
+            } else {
+                throw new IllegalArgumentException("You cannot subtract polynomial terms with unequal exponents.");
+            }
+        }
+        return new Polynomial(subtractedPolynomialTerms);
+    }
     /**
      * Method which multiplies two polynomials with a maximum final grade of six
      *
