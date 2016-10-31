@@ -106,6 +106,14 @@ public class PolynomialTest {
 
         assertEquals(expectedMultipliedPolynomial, actualPolynomial);
     }
+    @Test
+    public void functionValueOfX() throws Exception {
 
+        double expectedValueOfX = 89.0;
+
+        double actualValueOfX = polyTest1.functionValueOfX(3.0);
+
+        assertEquals(expectedValueOfX, actualValueOfX, 0.05d);
+    }
 
 }

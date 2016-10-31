@@ -132,18 +132,24 @@ public class Polynomial {
     }
 
     //mit Horners Schema
-    public double functionValueOfX (double valueOfX){
+    public double functionValueOfX(double valueOfX){
+        double[] arrayToStoreValues = hornersSchema(valueOfX);
+        return arrayToStoreValues[0];
+    }
+
+    private double[] hornersSchema(double valueOfX) {
         PolynomialTerm[] polynomialTermsToDetermine = polynomialTerms;
         double[] arrayToStoreValues = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         double[] arrayToHelpCalculate = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
-        arrayToHelpCalculate[6] = 0.0d;
-        for (int i = 6; i==0; i--){
-            arrayToStoreValues[i] = polynomialTermsToDetermine[i] + arrayToHelpCalculate[i]; //Need Coefficient from PolyTerm.. get fkt nicht?
-            arrayToHelpCalculate[i-1] = (arrayToStoreValues[i] * valueOfX);
-
+        Arrays.fill(arrayToHelpCalculate, 0.0d);
+        final int NUM_ITERATIONS = MAX_POLYNOMIAL_GRADE_PLUS_ONE -1;
+        for (int i = NUM_ITERATIONS; i >= 0; i--){
+            arrayToStoreValues[i] = polynomialTermsToDetermine[i].getCoefficient() + arrayToHelpCalculate[i];
+            if (i != 0) {
+                arrayToHelpCalculate[i - 1] = (arrayToStoreValues[i] * valueOfX);
+            }
         }
-        double functValueOfX = arrayToStoreValues[0];
-        return functValueOfX;
+        return arrayToStoreValues;
     }
 
     /**
