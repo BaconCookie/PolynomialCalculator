@@ -131,6 +131,21 @@ public class Polynomial {
         return new Polynomial(multipliedPolynomialTerms);
     }
 
+    //mit Horners Schema
+    public double functionValueOfX (double valueOfX){
+        PolynomialTerm[] polynomialTermsToDetermine = polynomialTerms;
+        double[] arrayToStoreValues = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
+        double[] arrayToHelpCalculate = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
+        arrayToHelpCalculate[6] = 0.0d;
+        for (int i = 6; i==0; i--){
+            arrayToStoreValues[i] = polynomialTermsToDetermine[i] + arrayToHelpCalculate[i]; //Need Coefficient from PolyTerm.. get fkt nicht?
+            arrayToHelpCalculate[i-1] = (arrayToStoreValues[i] * valueOfX);
+
+        }
+        double functValueOfX = arrayToStoreValues[0];
+        return functValueOfX;
+    }
+
     /**
      * Boolean to check if exponents of two terms to add are matching
      *
