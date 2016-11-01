@@ -13,9 +13,34 @@ public class Polynomial {
 
     private PolynomialTerm[] polynomialTerms;
 
+    /**
+     * Constructor of Polynomial which declares & constructs an array of polynomialTerms terms (length 7)
+     * and calls a method to fill with default values
+     */
     public Polynomial() {
-        polynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE]; //constructs an array of polynomialTerms terms, length 7
+        polynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         polynomialTerms = fillPolynomialTermsWithDefaultValues(polynomialTerms);
+    }
+
+    /**
+     * Constructor of Polynomial which includes polynomial terms.
+     * Checks if the grade of the polynomial term isn't too large.
+     *
+     * @param polynomialTerms which are included in this polynomial.
+     *                        They are stored in an array. Indices hold one coefficient and exponent each.
+     */
+    public Polynomial(PolynomialTerm[] polynomialTerms) {
+        this();
+        for (PolynomialTerm currentTerm : polynomialTerms) {
+            if (currentTerm != null) {
+                Integer index = currentTerm.getExponent();
+                if (index > MAX_POLYNOMIAL_GRADE_PLUS_ONE) {
+                    throw new IllegalArgumentException("The grade of the polynomial term is too large. Max allowed: 6"
+                            + MAX_POLYNOMIAL_GRADE_PLUS_ONE);
+                }
+                this.polynomialTerms[index] = this.polynomialTerms[index].add(currentTerm);
+            }
+        }
     }
 
     /**
@@ -31,20 +56,6 @@ public class Polynomial {
             polynomialTerms[i] = new PolynomialTerm(0, i);
         }
         return polynomialTerms;
-    }
-
-    public Polynomial(PolynomialTerm[] polynomialTerms) {
-        this();
-        for (PolynomialTerm currentTerm : polynomialTerms) {
-            if (currentTerm != null) {
-                Integer index = currentTerm.getExponent();
-                if (index > MAX_POLYNOMIAL_GRADE_PLUS_ONE) {
-                    throw new IllegalArgumentException("The grade of the polynomial term is too large. Max allowed: 6"
-                            + MAX_POLYNOMIAL_GRADE_PLUS_ONE);
-                }
-                this.polynomialTerms[index] = this.polynomialTerms[index].add(currentTerm);
-            }
-        }
     }
 
     /**
@@ -152,7 +163,7 @@ public class Polynomial {
     }
 
     /**
-     * Method using the priciple of Horners Schema, to calculate the functionValueOfX and possibly division.
+     * Method using the principle of Horners Schema, to calculate the functionValueOfX and possibly division.
      * Only if the functionValueOfX = 0, this method can also be used to extract the outcome of a division.
      *
      * @param valueOfX (double) value which is used instead of X, function of this value will be determined
