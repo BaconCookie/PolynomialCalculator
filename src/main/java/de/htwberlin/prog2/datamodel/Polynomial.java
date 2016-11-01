@@ -18,6 +18,14 @@ public class Polynomial {
         polynomialTerms = fillPolynomialTermsWithDefaultValues(polynomialTerms);
     }
 
+    /**
+     * Method which fills polynomial terms with default values
+     * Default values are:  Coefficients 0.0d
+     *                      Exponents have the same number as the Indices and are sorted from 0 to 6
+     *
+     * @param polynomialTerms polynomial terms which are being filled
+     * @return polynomial terms with default values
+     */
     private PolynomialTerm[] fillPolynomialTermsWithDefaultValues(PolynomialTerm[] polynomialTerms) {
         for (int i = 0; i < polynomialTerms.length; i++) {
             polynomialTerms[i] = new PolynomialTerm(0, i);
@@ -65,7 +73,7 @@ public class Polynomial {
      * Method which subtracts the terms of two polynomials with a matching exponent
      *
      * @param polynomialToSubtract polynomial which is being subtracted from the current polynomial
-     * @return new polynomial object called which includes PolynomialTerm Array called subtractedPolynomialTerms
+     * @return new polynomial object which includes PolynomialTerm Array called subtractedPolynomialTerms
      */
     public Polynomial subtract(Polynomial polynomialToSubtract) {
         PolynomialTerm[] subtractedPolynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
@@ -82,6 +90,7 @@ public class Polynomial {
         }
         return new Polynomial(subtractedPolynomialTerms);
     }
+
     /**
      * Method which multiplies two polynomials with a maximum final grade of six
      *
@@ -131,19 +140,31 @@ public class Polynomial {
         return new Polynomial(multipliedPolynomialTerms);
     }
 
-    //mit Horners Schema
-    public double functionValueOfX(double valueOfX){
+    /**
+     * Method to calculate the functionValueOfX using Horners Schema
+     *
+     * @param valueOfX (double) value which is used instead of X, function of this value will be determined
+     * @return (double) function value of x
+     */
+    public double functionValueOfX(double valueOfX) {
         double[] arrayToStoreValues = hornersSchema(valueOfX);
         return arrayToStoreValues[0];
     }
 
+    /**
+     * Method using the priciple of Horners Schema, to calculate the functionValueOfX and possibly division.
+     * Only if the functionValueOfX = 0, this method can also be used to extract the outcome of a division.
+     *
+     * @param valueOfX (double) value which is used instead of X, function of this value will be determined
+     * @return arrayToStoreValues which holds the value(s) for functionValueOfX and depending on the outcome also for the division
+     */
     private double[] hornersSchema(double valueOfX) {
         PolynomialTerm[] polynomialTermsToDetermine = polynomialTerms;
         double[] arrayToStoreValues = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         double[] arrayToHelpCalculate = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         Arrays.fill(arrayToHelpCalculate, 0.0d);
-        final int NUM_ITERATIONS = MAX_POLYNOMIAL_GRADE_PLUS_ONE -1;
-        for (int i = NUM_ITERATIONS; i >= 0; i--){
+        final int NUM_ITERATIONS = MAX_POLYNOMIAL_GRADE_PLUS_ONE - 1;
+        for (int i = NUM_ITERATIONS; i >= 0; i--) {
             arrayToStoreValues[i] = polynomialTermsToDetermine[i].getCoefficient() + arrayToHelpCalculate[i];
             if (i != 0) {
                 arrayToHelpCalculate[i - 1] = (arrayToStoreValues[i] * valueOfX);
