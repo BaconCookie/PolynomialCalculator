@@ -46,7 +46,7 @@ public class Polynomial {
     /**
      * Method which fills polynomial terms with default values
      * Default values are:  Coefficients 0.0d
-     *                      Exponents have the same number as the Indices and are sorted from 0 to 6
+     * Exponents have the same number as the Indices and are sorted from 0 to 6
      *
      * @param polynomialTerms polynomial terms which are being filled
      * @return polynomial terms with default values
@@ -158,24 +158,46 @@ public class Polynomial {
      * @return (double) function value of x
      */
     public double functionValueOfX(double valueOfX) {
-        double[] arrayToStoreValues = hornersSchema(valueOfX);
+        double[] arrayToStoreValues = hornerSchema(valueOfX);
         return arrayToStoreValues[0];
     }
 
     /**
-     * Method using the principle of Horners Schema, to calculate the functionValueOfX and possibly division.
+     * Method to divide th polymonial by (x - a)
+     * In case "a" has the same value as valueOfX belonging to a functionValueOfX = 0,
+     * then this division will be completed without any rest.
+     *
+     * @param valueOfA the value of a which is placed in divisor: (x - a)
+     */
+    public void divideByXminusA(double valueOfA) {
+        double[] arrayToStoreValues = hornerSchema(valueOfA);
+        double rest = 0 + arrayToStoreValues[0];
+        double x0 = 0 + arrayToStoreValues[1];
+        double x1 = 0 + arrayToStoreValues[2];
+        double x2 = 0 + arrayToStoreValues[3];
+        double x3 = 0 + arrayToStoreValues[4];
+        double x4 = 0 + arrayToStoreValues[5];
+        double x5 = 0 + arrayToStoreValues[6];
+        double x6 = 0 + arrayToStoreValues[7];
+        System.out.println(this + ": this polynomial divided by x - " + valueOfA + " results in: ");
+        System.out.println(x6 + "x⁶ +" + x5 + "x⁵ +" + x4 + "x⁴ +" + x3 + "x³ +" + x2 + "x² +" + x1 + "x +" + x0 + " Rest: " + rest);
+    }
+
+
+    /**
+     * Method using the principle of HornerSchema, to calculate the functionValueOfX and possibly division.
      * Only if the functionValueOfX = 0, this method can also be used to extract the outcome of a division.
      *
      * @param valueOfX (double) value which is used instead of X, function of this value will be determined
      * @return arrayToStoreValues which holds the value(s) for functionValueOfX and depending on the outcome also for the division
      */
-    private double[] hornersSchema(double valueOfX) {
+    private double[] hornerSchema(double valueOfX) {
         PolynomialTerm[] polynomialTermsToDetermine = polynomialTerms;
         double[] arrayToStoreValues = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         double[] arrayToHelpCalculate = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         Arrays.fill(arrayToHelpCalculate, 0.0d);
-        final int NUM_ITERATIONS = MAX_POLYNOMIAL_GRADE_PLUS_ONE - 1;
-        for (int i = NUM_ITERATIONS; i >= 0; i--) {
+        //final int NUM_ITERATIONS = MAX_POLYNOMIAL_GRADE_PLUS_ONE - 1;
+        for (int i = MAX_POLYNOMIAL_GRADE_PLUS_ONE; i >= 0; i--) {
             arrayToStoreValues[i] = polynomialTermsToDetermine[i].getCoefficient() + arrayToHelpCalculate[i];
             if (i != 0) {
                 arrayToHelpCalculate[i - 1] = (arrayToStoreValues[i] * valueOfX);

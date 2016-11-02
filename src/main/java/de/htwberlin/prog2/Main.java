@@ -7,6 +7,20 @@ public class Main {
 
     public static void main(String[] args) {
 
+
+        PolynomialTerm[] polyTermTest1 = new PolynomialTerm[7];
+        polyTermTest1[0] = new PolynomialTerm(5.0d, 0);
+        polyTermTest1[1] = new PolynomialTerm(1.0d, 1);
+        polyTermTest1[2] = new PolynomialTerm(3.0d, 2);
+        polyTermTest1[3] = new PolynomialTerm(2.0d, 3);
+        polyTermTest1[4] = new PolynomialTerm(0.0d, 4);
+        polyTermTest1[5] = new PolynomialTerm(0.0d, 5);
+        polyTermTest1[6] = new PolynomialTerm(0.0d, 6);
+        Polynomial polyTest1 = new Polynomial(polyTermTest1);
+
+        polyTest1.divideByXminusA(3);
+
+        /*
        // PolynomialTerm polyTest0 = new PolynomialTerm(9.0d, 0);
        // PolynomialTerm polyTest1 = new PolynomialTerm(3.0d, 1);
         PolynomialTerm polyTest2 = new PolynomialTerm(3.0d, 2);
@@ -42,6 +56,7 @@ public class Main {
         exampleBanane.example();
 
         //Polynomial polynomial1 = new Polynomial();
+*/
 
     }
 }
