@@ -16,7 +16,7 @@ public class PolynomialTerm {
         this.exponent = exponent;
     }
 
-    public PolynomialTerm(){
+    public PolynomialTerm() {
         //default constructor to avoid null pointer exception ????????
     }
 
@@ -26,11 +26,11 @@ public class PolynomialTerm {
      * @param termToAdd term which is added
      * @return sum of current term and termToAdd
      */
-    public PolynomialTerm add(PolynomialTerm termToAdd){
+    public PolynomialTerm add(PolynomialTerm termToAdd) {
         if (exponent.equals(termToAdd.getExponent())) {
             double newCoefficient = this.coefficient + termToAdd.getCoefficient();
             return new PolynomialTerm(newCoefficient, exponent);
-            } else {
+        } else {
             throw new IllegalArgumentException("You cannot add polynomial terms with unequal exponents.");
         }
     }
@@ -41,8 +41,8 @@ public class PolynomialTerm {
      * @param termToSubtract term which is subtracted
      * @return difference between current term and termToSubtract
      */
-    public  PolynomialTerm subtract(PolynomialTerm termToSubtract){
-        if (exponent.equals(termToSubtract.getExponent())){
+    public PolynomialTerm subtract(PolynomialTerm termToSubtract) {
+        if (exponent.equals(termToSubtract.getExponent())) {
             double newCoefficient = this.coefficient - termToSubtract.getCoefficient();
             return new PolynomialTerm(newCoefficient, exponent);
         } else {
@@ -57,18 +57,30 @@ public class PolynomialTerm {
      * @param termToMultiply term which is multiplied
      * @return new term which is the result of the multiplication of the two terms (newCoefficient, max. newExponent of 6)
      */
-    public PolynomialTerm multiply(PolynomialTerm termToMultiply){
+    public PolynomialTerm multiply(PolynomialTerm termToMultiply) {
         double newCoefficient = this.coefficient * termToMultiply.getCoefficient();
         int newExponent = this.exponent + termToMultiply.getExponent();
         if (newExponent < 7) {                                              //Hard coded 7, still ok?
             return new PolynomialTerm(newCoefficient, newExponent); //Bis hier wird noch richtig gerechnet, aber es scheint nicht rchtig zurückgegeben zu werden
         }
-        if (newCoefficient == 0){
+        if (newCoefficient == 0) {
             return new PolynomialTerm(0.0d, 0);
-        }else {
+        } else {
             throw new IllegalArgumentException("The maximum grade of polynomials calculated in this program is six.");
         }
     }
+
+    public PolynomialTerm derive(PolynomialTerm termToDerive) {
+        if (exponent > 0) {
+            double newCoefficient = this.coefficient * this.exponent;
+            int newExponent = this.exponent - 1;
+            return new PolynomialTerm(newCoefficient, newExponent);
+            }
+        else {
+            return new PolynomialTerm(0.0d, 0);
+        }
+    }
+
 
     public Double getCoefficient() {
         return coefficient;
@@ -94,7 +106,7 @@ public class PolynomialTerm {
 
     @Override
     public String toString() {
-        return "PolynomialTerm{" +  coefficient +
+        return "PolynomialTerm{" + coefficient +
                 "x^" + exponent +
                 '}';
     }

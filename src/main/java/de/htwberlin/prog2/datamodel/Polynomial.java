@@ -153,8 +153,16 @@ public class Polynomial {
         return new Polynomial(multipliedPolynomialTerms);
     }
 
+    public Polynomial firstDerivation() {
+        PolynomialTerm[] derivedPolynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
+        derivedPolynomialTerms = fillPolynomialTermsWithDefaultValues(derivedPolynomialTerms);
+
+        return new Polynomial(derivedPolynomialTerms);
+
+    }
+
     /**
-     * Method to calculate the functionValueOfX using Horners Schema
+     * Method to calculate the functionValueOfX using the HornerSchema
      *
      * @param valueOfX (double) value which is used instead of X, function of this value will be determined
      * @return (double) function value of x
@@ -174,7 +182,7 @@ public class Polynomial {
      */
     public Map divideByXMinusA(double valueOfA) {
         double[] arrayToStoreValues = hornerSchema(valueOfA);
-        Map<String,Double> dividedByXMinusA = new HashMap();
+        Map<String, Double> dividedByXMinusA = new HashMap();
         dividedByXMinusA.put("Remainder", 0 + arrayToStoreValues[0]);
         dividedByXMinusA.put("x^0", 0 + arrayToStoreValues[1]);
         dividedByXMinusA.put("x^1", 0 + arrayToStoreValues[2]);
@@ -182,7 +190,6 @@ public class Polynomial {
         dividedByXMinusA.put("x^3", 0 + arrayToStoreValues[4]);
         dividedByXMinusA.put("x^3", 0 + arrayToStoreValues[5]);
         dividedByXMinusA.put("x^5", 0 + arrayToStoreValues[6]);
-        dividedByXMinusA.put("x^6", 0 + arrayToStoreValues[7]);
         return dividedByXMinusA;
     }
 
@@ -200,7 +207,7 @@ public class Polynomial {
         double[] arrayToHelpCalculate = new double[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         Arrays.fill(arrayToHelpCalculate, 0.0d);
         //final int NUM_ITERATIONS = MAX_POLYNOMIAL_GRADE_PLUS_ONE - 1;
-        for (int i = MAX_POLYNOMIAL_GRADE_PLUS_ONE; i >= 0; i--) {
+        for (int i = MAX_POLYNOMIAL_GRADE_PLUS_ONE - 1; i >= 0; i--) {
             arrayToStoreValues[i] = polynomialTermsToDetermine[i].getCoefficient() + arrayToHelpCalculate[i];
             if (i != 0) {
                 arrayToHelpCalculate[i - 1] = (arrayToStoreValues[i] * valueOfX);

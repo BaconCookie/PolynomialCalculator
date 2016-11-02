@@ -3,6 +3,9 @@ package de.htwberlin.prog2.datamodel;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 /**
@@ -115,5 +118,19 @@ public class PolynomialTest {
 
         assertEquals(expectedValueOfX, actualValueOfX, 0.05d);
     }
+    @Test
+    public void divideByXMinusA() throws Exception {
+        Map expectedDivisionResult = new HashMap();
+        expectedDivisionResult.put("Remainder", 89.0);
+        expectedDivisionResult.put("x^0", 28.0);
+        expectedDivisionResult.put("x^1", 9.0);
+        expectedDivisionResult.put("x^2", 2.0);
+        expectedDivisionResult.put("x^3", 0.0);
+        expectedDivisionResult.put("x^3", 0.0);
+        expectedDivisionResult.put("x^5", 0.0);
 
+        Map actualDivisionResult = polyTest1.divideByXMinusA(3.0);
+
+        assertEquals(expectedDivisionResult, actualDivisionResult);
+    }
 }
