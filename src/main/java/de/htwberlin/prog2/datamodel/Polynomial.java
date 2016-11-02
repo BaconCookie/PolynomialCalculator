@@ -1,6 +1,8 @@
 package de.htwberlin.prog2.datamodel;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by laura on 09.10.16.
@@ -163,24 +165,25 @@ public class Polynomial {
     }
 
     /**
-     * Method to divide th polymonial by (x - a)
+     * Method to divide the polynomial by (x - a)
      * In case "a" has the same value as valueOfX belonging to a functionValueOfX = 0,
-     * then this division will be completed without any rest.
+     * then this division will be completed with a remainder of zero.
      *
      * @param valueOfA the value of a which is placed in divisor: (x - a)
+     * @return Map with result of division with x - a
      */
-    public void divideByXminusA(double valueOfA) {
+    public Map divideByXMinusA(double valueOfA) {
         double[] arrayToStoreValues = hornerSchema(valueOfA);
-        double rest = 0 + arrayToStoreValues[0];
-        double x0 = 0 + arrayToStoreValues[1];
-        double x1 = 0 + arrayToStoreValues[2];
-        double x2 = 0 + arrayToStoreValues[3];
-        double x3 = 0 + arrayToStoreValues[4];
-        double x4 = 0 + arrayToStoreValues[5];
-        double x5 = 0 + arrayToStoreValues[6];
-        double x6 = 0 + arrayToStoreValues[7];
-        System.out.println(this + ": this polynomial divided by x - " + valueOfA + " results in: ");
-        System.out.println(x6 + "x⁶ +" + x5 + "x⁵ +" + x4 + "x⁴ +" + x3 + "x³ +" + x2 + "x² +" + x1 + "x +" + x0 + " Rest: " + rest);
+        Map<String,Double> dividedByXMinusA = new HashMap();
+        dividedByXMinusA.put("Remainder", 0 + arrayToStoreValues[0]);
+        dividedByXMinusA.put("x^0", 0 + arrayToStoreValues[1]);
+        dividedByXMinusA.put("x^1", 0 + arrayToStoreValues[2]);
+        dividedByXMinusA.put("x^2", 0 + arrayToStoreValues[3]);
+        dividedByXMinusA.put("x^3", 0 + arrayToStoreValues[4]);
+        dividedByXMinusA.put("x^3", 0 + arrayToStoreValues[5]);
+        dividedByXMinusA.put("x^5", 0 + arrayToStoreValues[6]);
+        dividedByXMinusA.put("x^6", 0 + arrayToStoreValues[7]);
+        return dividedByXMinusA;
     }
 
 

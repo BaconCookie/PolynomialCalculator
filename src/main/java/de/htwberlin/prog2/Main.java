@@ -18,7 +18,7 @@ public class Main {
         polyTermTest1[6] = new PolynomialTerm(0.0d, 6);
         Polynomial polyTest1 = new Polynomial(polyTermTest1);
 
-        polyTest1.divideByXminusA(3);
+        polyTest1.divideByXMinusA(3);
 
         /*
        // PolynomialTerm polyTest0 = new PolynomialTerm(9.0d, 0);
