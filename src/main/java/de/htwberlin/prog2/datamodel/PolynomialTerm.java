@@ -70,7 +70,13 @@ public class PolynomialTerm {
         }
     }
 
-    public PolynomialTerm derive(PolynomialTerm termToDerive) {
+    /**
+     * Method which derives polynomial term with a exponent > 0
+     * This method is used for the first derivation of polynomials
+     *
+     * @return new term which is the result of the derivation (newCoefficient, newExponent)
+     */
+    public PolynomialTerm derive() {
         if (exponent > 0) {
             double newCoefficient = this.coefficient * this.exponent;
             int newExponent = this.exponent - 1;
@@ -80,7 +86,6 @@ public class PolynomialTerm {
             return new PolynomialTerm(0.0d, 0);
         }
     }
-
 
     public Double getCoefficient() {
         return coefficient;

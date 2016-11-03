@@ -16,6 +16,7 @@ public class PolynomialTest {
     private PolynomialTerm[] polyTermTest1;
     private PolynomialTerm[] polyTermTest2;
     private PolynomialTerm[] polyTermTest3;
+    private PolynomialTerm[] polyTermTest4;
     private Polynomial polyTest1;
     private Polynomial polyTest2;
     private Polynomial polyTest3;
@@ -54,7 +55,17 @@ public class PolynomialTest {
         polyTermTest3[6] = new PolynomialTerm(0.0d, 6);
         polyTest3 = new Polynomial(polyTermTest3);
 
-        polyTest4 = new Polynomial();
+
+        polyTermTest4 = new PolynomialTerm[7];
+        polyTermTest4[0] = new PolynomialTerm(4.0d, 0);
+        polyTermTest4[1] = new PolynomialTerm(-3.0d, 1);
+        polyTermTest4[2] = new PolynomialTerm(2.5d, 2);
+        polyTermTest4[3] = new PolynomialTerm(0.0d, 3);
+        polyTermTest4[4] = new PolynomialTerm(6.0d, 4);
+        polyTermTest4[5] = new PolynomialTerm(2.0d, 5);
+        polyTermTest4[6] = new PolynomialTerm(7.3d, 6);
+        polyTest4 = new Polynomial(polyTermTest4);
+
 
     }
 
@@ -132,5 +143,22 @@ public class PolynomialTest {
         Map actualDivisionResult = polyTest1.divideByXMinusA(3.0);
 
         assertEquals(expectedDivisionResult, actualDivisionResult);
+    }
+
+    @Test
+    public void firstDerivation() throws Exception {
+        PolynomialTerm[] expectedDerivedTerms = new PolynomialTerm[7];
+        expectedDerivedTerms[0] = new PolynomialTerm(2.0d, 0);
+        expectedDerivedTerms[1] = new PolynomialTerm(0.0d, 1);
+        expectedDerivedTerms[2] = new PolynomialTerm(3.0d, 2);
+        expectedDerivedTerms[3] = new PolynomialTerm(8.0d, 3);
+        expectedDerivedTerms[4] = new PolynomialTerm(20.0d, 4);
+        expectedDerivedTerms[5] = new PolynomialTerm(30.0d, 5);
+        expectedDerivedTerms[6] = new PolynomialTerm(0.0d, 6);
+        Polynomial expectedDerivedPolynomial = new Polynomial(expectedDerivedTerms);
+
+        Polynomial actualPolynomial = polyTest2.firstDerivation();
+
+        assertEquals(expectedDerivedPolynomial, actualPolynomial);
     }
 }

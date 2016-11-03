@@ -108,7 +108,7 @@ public class Polynomial {
      * Method which multiplies two polynomials with a maximum final grade of six
      *
      * @param polynomialToMultiply polynomial which is being multiplied with the current polynomial
-     * @return new polynomial object called multipliedPolynomialTerms
+     * @return new polynomial object which includes the PolynomialTerm Array called multipliedPolynomialTerms
      */
     public Polynomial multiply(Polynomial polynomialToMultiply) {
         PolynomialTerm[] multipliedPolynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
@@ -153,12 +153,20 @@ public class Polynomial {
         return new Polynomial(multipliedPolynomialTerms);
     }
 
+    /**
+     * Method which calculates the first derivation of the current polynomial
+     *
+     * @return new polynomial object which includes the PolynomialTerm Array called derivedPolynomialTerms
+     */
     public Polynomial firstDerivation() {
         PolynomialTerm[] derivedPolynomialTerms = new PolynomialTerm[MAX_POLYNOMIAL_GRADE_PLUS_ONE];
         derivedPolynomialTerms = fillPolynomialTermsWithDefaultValues(derivedPolynomialTerms);
 
-        return new Polynomial(derivedPolynomialTerms);
-
+        for (int i = 0; i < derivedPolynomialTerms.length; i++) {
+            PolynomialTerm currentOwnTerm = polynomialTerms[i];
+            derivedPolynomialTerms[i] = currentOwnTerm.derive();
+        }
+            return new Polynomial(derivedPolynomialTerms);
     }
 
     /**

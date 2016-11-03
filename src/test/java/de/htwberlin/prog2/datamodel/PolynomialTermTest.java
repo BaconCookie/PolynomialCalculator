@@ -45,8 +45,14 @@ public class PolynomialTermTest {
         PolynomialTerm newMultipliedTerm = polyTermTest.multiply(polynomialTermToCalculateWithTwo);
 
         assertEquals(expectedPolynomialTerm, newMultipliedTerm);
-
-
     }
 
+    @Test
+    public void derive() throws Exception {
+        PolynomialTerm expectedPolynomialTerm = new PolynomialTerm(12.0, 2);
+
+        PolynomialTerm actualPolynomialTerm = polynomialTermToCalculateWithTwo.derive();
+
+        assertEquals(expectedPolynomialTerm, actualPolynomialTerm);
+    }
 }
