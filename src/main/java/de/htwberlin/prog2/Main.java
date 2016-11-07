@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         Controller controll = new Controller();
-        controll.foobar();
+        controll.runPolynomials();
 
 
         PolynomialTerm[] polyTermTest1 = new PolynomialTerm[7];
