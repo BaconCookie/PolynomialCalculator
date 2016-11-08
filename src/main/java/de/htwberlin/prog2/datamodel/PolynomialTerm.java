@@ -112,8 +112,7 @@ public class PolynomialTerm implements Serializable {
 
     @Override
     public String toString() {
-        return "PolynomialTerm{" + coefficient +
-                "x^" + exponent +
-                '}';
+        return coefficient +
+                "x^" + exponent;
     }
 }

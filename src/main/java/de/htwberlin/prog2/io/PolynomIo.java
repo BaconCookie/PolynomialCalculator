@@ -9,11 +9,10 @@ import java.io.*;
  */
 public class PolynomIo {
 
-    public void save(Polynomial polynomialToSave, String outputPath) throws IOException {
+    public void save(Polynomial polynomialToSave, String outputPath) throws IOException{
         FileOutputStream fileOutput = new FileOutputStream(outputPath);
         ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
         objectOutput.writeObject(polynomialToSave);
-
     }
 
     public Polynomial load(String inputPath) throws IOException, ClassNotFoundException{

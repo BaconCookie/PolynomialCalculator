@@ -238,9 +238,8 @@ public class Polynomial implements Serializable{
 
     @Override
     public String toString() {
-        return "Polynomial{" +
-                "polynomialTerms=" + Arrays.toString(polynomialTerms) + // calls toString method for each element of array
-                '}';
+        return "Polynomial"
+                + Arrays.toString(polynomialTerms);// calls toString method for each element of array
     }
 
     @Override
