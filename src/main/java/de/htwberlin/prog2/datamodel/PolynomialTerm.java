@@ -1,11 +1,12 @@
 package de.htwberlin.prog2.datamodel;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Created by laura on 09.10.16.
  */
-public class PolynomialTerm {
+public class PolynomialTerm implements Serializable {
 
     private Double coefficient;
     private Integer exponent;

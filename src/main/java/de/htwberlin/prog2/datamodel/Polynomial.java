@@ -1,5 +1,6 @@
 package de.htwberlin.prog2.datamodel;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
  * Class of Polynomials
  * Indices and Exponents have the same number and are sorted from 0 to 6
  */
-public class Polynomial {
+public class Polynomial implements Serializable{
 
     public static final int MAX_POLYNOMIAL_GRADE_PLUS_ONE = 7; // plus one because we need the 0 too!
 

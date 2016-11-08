@@ -40,6 +40,8 @@ public class Controller {
                         readTerms[exponent] = readCoefficients(exponent);
                     }
                     Polynomial readPolynomial = new Polynomial(readTerms);
+
+
                     //POLYNOM SPEICHERN?
                     break;
 

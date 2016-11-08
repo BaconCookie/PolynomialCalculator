@@ -1,8 +1,10 @@
 package de.htwberlin.prog2.datamodel;
 
+import de.htwberlin.prog2.io.PolynomIo;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -160,5 +162,17 @@ public class PolynomialTest {
         Polynomial actualPolynomial = polyTest2.firstDerivation();
 
         assertEquals(expectedDerivedPolynomial, actualPolynomial);
+    }
+
+    @Test
+    public void saveAndLoad() throws Exception {
+        PolynomIo polynomIo = new PolynomIo();
+        String filePath = "./test.poly";
+        polynomIo.save(polyTest2, filePath);
+        Polynomial actualLoadedPolynomial = polynomIo.load(filePath);
+
+        assertEquals(polyTest2, actualLoadedPolynomial);
+        File file = new File(filePath);
+        file.deleteOnExit();
     }
 }
