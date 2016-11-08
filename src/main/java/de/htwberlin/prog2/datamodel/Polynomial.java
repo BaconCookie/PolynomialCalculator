@@ -46,6 +46,11 @@ public class Polynomial implements Serializable{
         }
     }
 
+    public void change(Double newCoefficient, int exponent){
+        PolynomialTerm termToChange = polynomialTerms[exponent];
+        termToChange.setCoefficient(newCoefficient);
+    }
+
     /**
      * Method which fills polynomial terms with default values
      * Default values are:  Coefficients 0.0d

@@ -3,14 +3,11 @@ package de.htwberlin.prog2.datamodel;
 import Prog1Tools.IOTools;
 import de.htwberlin.prog2.io.PolynomIo;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static Prog1Tools.IOTools.readChar;
-import static Prog1Tools.IOTools.readDouble;
-import static Prog1Tools.IOTools.readString;
+import static Prog1Tools.IOTools.*;
 
 /**
  * Created by laura on 03.11.16.
@@ -19,30 +16,15 @@ public class Controller {
 
 
     private int action = 10;
-    private Map polynomialMap = new HashMap();
+    private Map<String, Polynomial> polynomialMap = new HashMap<>();
 
     public Controller() {
     }
 
     public void runPolynomials() //throws IOException
-     {
-
+    {
+        action = '1';
         while (action != 0) {
-            System.out.println();
-            System.out.println("--> Bitte entscheiden Sie sich für eine Aktion: <--");
-            System.out.println(" 1   Polynom eingeben");
-            System.out.println(" 2   gespeichtere Polynome anzeigen");
-            System.out.println(" 3   Polynom verändern");
-            System.out.println(" 4   zwei Polynome addieren");
-            System.out.println(" 5   zwei Polynome subtrahieren");
-            System.out.println(" 6   zwei Polynome multiplizieren");
-            System.out.println(" 7   erste Ableitung des Polynoms");
-            System.out.println(" 8   Funktionswert von x");
-            System.out.println(" 9   Polynom dividieren durch (x - a)");
-            System.out.println(" 0   Programm beenden");
-            System.out.println("Ihre Eingabe: ");
-            action = IOTools.readChar();
-
             switch (action) {
                 case '1':
                     PolynomialTerm[] readTerms = new PolynomialTerm[Polynomial.MAX_POLYNOMIAL_GRADE_PLUS_ONE];
@@ -50,57 +32,29 @@ public class Controller {
                         readTerms[exponent] = readCoefficients(exponent);
                     }
                     Polynomial readPolynomial = new Polynomial(readTerms);
-                    String polynomialName = readString("Geben Sie ein unter welchen Namen das Polynoms gespeichert werden soll: ");
-                    polynomialMap.put(polynomialName, readPolynomial);
-
-                    /*
-                    //POLYNOM SPEICHERN?
-                    PolynomIo polynomIo = new PolynomIo();
-                    String filePath = "./test.poly";
-                    try {
-                        polynomIo.save(readPolynomial, filePath);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    File file = new File(filePath); //hier wird immer n neues file geschrieben --> klassenebene
-                    */
+                    savePolynomial(readPolynomial);
                     break;
 
                 case '2':
                     System.out.println(polynomialMap.entrySet());
-                    /*
-                    for (int i = 0; i < polynomialMap.size(); i++) {
-                        System.out.println(polynomialMap.entrySet());
-                    }
-                    */
-                    //gespeicherte Polynome printen
                     break;
 
-                case '3': //eins von den gespeicherten Polynome auswählen, ändern (ganz neu eingeben?), wieder speichern
+                case '3':
+                    Polynomial polynomialToChange = userChoosePolynomial();
+                    System.out.println(polynomialToChange);
+                    int exponent = readInteger("Welchen Term möchten Sie ändern? : ");
+                    Double newCoefficient = readDouble("Was soll der neue Wert werden? : ");
+                    polynomialToChange.change(newCoefficient, exponent);
+                    System.out.println(polynomialToChange);
                     break;
 
-                case '4':
-                    String polynomialOne = readString("Geben Sie ein zu welches Polynom Sie addieren wollen: ");
-                    String polynomialTwo = readString("Geben Sie ein welches Polynom Sie dazu addieren wollen: ");
-                    Polynomial polynomialToAddOne = (Polynomial) polynomialMap.get(polynomialOne);
-                    Polynomial polynomialToAddTwo = (Polynomial) polynomialMap.get(polynomialTwo);
+                case '4': //zwei Polynome auswählen mit add methode addieren, das addierte polynom printen& speichern
+                    Polynomial polynomialToAddOne = userChoosePolynomial();
+                    Polynomial polynomialToAddTwo = userChoosePolynomial();
                     Polynomial addedPolynomial = polynomialToAddOne.add(polynomialToAddTwo);
                     System.out.println("Ergebnis addition: " + addedPolynomial);
 
-                    char save = readChar("Wollen Sie das addierte Polynom speichern? j/n ");
-                    if (save == 'j') {
-                        String addedPolynomialName = readString("Geben Sie ein unter welchen Namen das Polynoms gespeichert werden soll: ");
-                        polynomialMap.put(addedPolynomialName, addedPolynomial);
-                    }
-                    if (save == 'n') {
-                        break;
-                    }
-                    else {
-                        //nochmal eingabe??
-                    }
-
-
-                    //zwei Polynome auswählen mit add methode addieren, das addierte polynom printen& speichern
+                    savePolynomial(addedPolynomial);
                     break;
 
                 case '5': //zwei Polynome auswählen mit subtract methode addieren, das subtrahierte polynom printen& speichern
@@ -113,21 +67,79 @@ public class Controller {
                     break;
 
                 case '8': //ein Polynom auswählen, double Wert für x eingeben lassen,
-                        // X mit functionValueOfX methode berechnen, double x printen
+                    // X mit functionValueOfX methode berechnen, double x printen
                     break;
 
                 case '9': //ein Polynom auswählen, double Wert für a eingeben lassen,
                     // und mit divideByXMinusA methode berechnen, Werte aus Hashmap printen
                     break;
 
-                case '0':
+                case '0': System.exit(0);
                     break;
 
                 default:
                     System.out.println("Nein!!!Doch???Oh!!!");
                     System.out.println("Die Eingabe konnte nicht verarbeitet werden - probieren Sie was anderes: ");
             }
+            showMenu();
         }
+    }
+
+    private void showMenu() {
+        System.out.println();
+        System.out.println("--> Bitte entscheiden Sie sich für eine Aktion: <--");
+        System.out.println(" 1   Polynom eingeben");
+        System.out.println(" 2   gespeichtere Polynome anzeigen");
+        System.out.println(" 3   Polynom verändern");
+        System.out.println(" 4   zwei Polynome addieren");
+        System.out.println(" 5   zwei Polynome subtrahieren");
+        System.out.println(" 6   zwei Polynome multiplizieren");
+        System.out.println(" 7   erste Ableitung des Polynoms");
+        System.out.println(" 8   Funktionswert von x");
+        System.out.println(" 9   Polynom dividieren durch (x - a)");
+        System.out.println(" 0   Programm beenden");
+        System.out.println("Ihre Eingabe: ");
+        action = IOTools.readChar();
+    }
+
+    private void savePolynomial(Polynomial addedPolynomial) {
+        while (true) {
+            String addedPolynomialName = "";
+            do {
+                addedPolynomialName = readString("Geben Sie den Namen des Polynoms eins:  ");
+            }while (nameIsNullOrContainedInMapKeys(addedPolynomialName));
+            polynomialMap.put(addedPolynomialName, addedPolynomial);
+
+            char putInMap = readChar("Wollen Sie das addierte Polynom speichern? j/n ");
+            if (putInMap == 'j') {
+                try {
+                //POLYNOM SPEICHERN?
+                PolynomIo polynomIo = new PolynomIo();
+                String filePath =
+                        "./"+ addedPolynomialName + ".poly";
+                    polynomIo.save(addedPolynomial, filePath);
+                } catch (IOException e) {
+                    System.out.println("Unerwartete Fehler beim speichern. Suchen Sie deckung.");;
+                }
+                return;
+            } else if (putInMap == 'n') {
+                return;
+            }
+        }
+    }
+
+    private boolean nameIsNullOrContainedInMapKeys(String addedPolynomialName) {
+        return polynomialMap.containsKey(addedPolynomialName) || addedPolynomialName.equals("");
+    }
+
+    private Polynomial userChoosePolynomial() {
+        Polynomial choosenPolynomial = null;
+        while (choosenPolynomial == null) {
+            System.out.println(polynomialMap);
+            String toChange = readString("Welches Polynom möchten Sie auswählen? : ");
+            choosenPolynomial = polynomialMap.get(toChange);
+        }
+        return choosenPolynomial;
     }
 
     private PolynomialTerm readCoefficients(int exponent) {

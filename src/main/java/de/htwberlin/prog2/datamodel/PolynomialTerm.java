@@ -92,6 +92,10 @@ public class PolynomialTerm implements Serializable {
         return coefficient;
     }
 
+    public void setCoefficient(Double newCoefficient){
+        this.coefficient = newCoefficient;
+    }
+
     public Integer getExponent() {
         return exponent;
     }
