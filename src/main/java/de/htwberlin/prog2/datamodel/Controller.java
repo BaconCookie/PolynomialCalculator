@@ -21,7 +21,15 @@ public class Controller {
     public Controller() {
     }
 
-    public void runPolynomials() //throws IOException
+    /**
+     * Method which holds the possible options a user has within this program
+     *
+     * Starts automatically with case 1, where the user is asked to type the values of a polynomial,
+     * which later can be used to calculate with
+     *
+     * Exit with 0
+     */
+    public void runPolynomials()
     {
         action = 1;
         while (action != 0) {
@@ -94,7 +102,9 @@ public class Controller {
                     break;
 
                 case 10:
-
+                    Polynomial loadedPolynomial = loadPolynomial();
+                    System.out.println("Das von Ihnen geladen Polynom ist: " + loadedPolynomial);
+                    break;
 
                 case 0: System.exit(0);
                     break;
@@ -107,6 +117,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Menu of the polynomial Class in German
+     */
     private void showMenu() {
         System.out.println();
         System.out.println("--> Bitte entscheiden Sie sich für eine Aktion: <--");
@@ -125,6 +138,11 @@ public class Controller {
         action = IOTools.readInteger();
     }
 
+    /**
+     * Method which saves polynomials in a HashMap and in a file if the user wishes so
+     *
+     * @param polynomialToSave Polynomial which is being saved
+     */
     private void savePolynomial(Polynomial polynomialToSave) {
         while (true) {
             String toSavePolynomialName = "";
@@ -138,11 +156,10 @@ public class Controller {
             if (putInMap == 'j') {
                 try {
                 PolynomIo polynomIo = new PolynomIo();
-                String filePath =
-                        "./"+ toSavePolynomialName + ".poly";
+                String filePath = "./"+ toSavePolynomialName + ".poly";
                     polynomIo.save(polynomialToSave, filePath);
                 } catch (IOException e) {
-                    System.out.println("Error. Unerwarteter Fehler bei dem speichern. Die Antwort ist 42.");
+                    System.out.println("Error. Unerwarteter Fehler beim speichern. Die Antwort ist 42.");
                 }
                 return;
             } else if (putInMap == 'n') {
@@ -151,20 +168,58 @@ public class Controller {
         }
     }
 
-    private boolean nameIsNullOrContainedInMapKeys(String addedPolynomialName) {
-        return polynomialMap.containsKey(addedPolynomialName) || addedPolynomialName.equals("");
+    private boolean nameIsNullOrContainedInMapKeys(String toSavePolynomialName) {
+        return polynomialMap.containsKey(toSavePolynomialName) || toSavePolynomialName.equals("");
     }
 
+    /**
+     * Method which loads previously saved polynomials from a file
+     *
+     * @return Loaded polynomial
+     */
+    private Polynomial loadPolynomial() {
+        String toLoadPolynomialName = "";
+        do {
+            toLoadPolynomialName = readString("Geben Sie den Namen des zu ladene Polynoms ein: ");
+        }while (nameIsNullOrNotInMapKeys(toLoadPolynomialName));
+
+        //polynomialMap.get(toLoadPolynomialName); <-------------------------------------HIER WEG??
+        try {
+            PolynomIo polynomIo = new PolynomIo();
+            String inputPath = "./"+ toLoadPolynomialName + ".poly";
+            Polynomial loadedPolynomial = polynomIo.load(inputPath);
+            return loadedPolynomial;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error. Unerwarteter Fehler beim laden.");
+        }
+        return polynomialMap.get(toLoadPolynomialName); //<-------------------------------------HIER WEG??
+    }
+    private boolean nameIsNullOrNotInMapKeys(String toLoadPolynomialName) {
+        return !polynomialMap.containsKey(toLoadPolynomialName) || toLoadPolynomialName.equals("");
+    }
+
+    /**
+     * Method to let the user choose which polynomial should be selected for use
+     * Method needs the user to type in the name of the polynomial (Text for user is in German)
+     *
+     * @return the chosen polynomial
+     */
     private Polynomial userChoosePolynomial() {
-        Polynomial choosenPolynomial = null;
-        while (choosenPolynomial == null) {
+        Polynomial chosenPolynomial = null;
+        while (chosenPolynomial == null) {
             System.out.println(polynomialMap);
             String toChange = readString("Welches Polynom möchten Sie auswählen? Geben Sie den Namen ein: ");
-            choosenPolynomial = polynomialMap.get(toChange);
+            chosenPolynomial = polynomialMap.get(toChange);
         }
-        return choosenPolynomial;
+        return chosenPolynomial;
     }
 
+    /**
+     * Method which reads coefficients from the command line and ties them to an exponent
+     *
+     * @param exponent predefined part of a PolynomialTerm
+     * @return new PolynomialTerm with coefficient from user and set exponent
+     */
     private PolynomialTerm readCoefficients(int exponent) {
         double coeff = readDouble("Geben Sie den (double) Koeffizient für x^" + exponent + " ein: ");
         return new PolynomialTerm(coeff, exponent);

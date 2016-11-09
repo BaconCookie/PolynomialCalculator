@@ -9,12 +9,27 @@ import java.io.*;
  */
 public class PolynomIo {
 
+    /**
+     * Method to save polynomials in a file
+     *
+     * @param polynomialToSave polynomial which is being saved
+     * @param outputPath          <-----------------------------------------------------versteh ich noch nicht so ganz :/
+     * @throws IOException to a higher level because the Exception can't be handled here
+     */
     public void save(Polynomial polynomialToSave, String outputPath) throws IOException{
         FileOutputStream fileOutput = new FileOutputStream(outputPath);
         ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
         objectOutput.writeObject(polynomialToSave);
     }
 
+    /**
+     * Method to load polynomials from a file
+     *
+     * @param inputPath location where the file can be found
+     * @return         <-----------------------------------------------------versteh noch nicht so ganz wie das mit den exceptions funktionieren soll
+     * @throws IOException to a higher level because the Exception can't be handled here
+     * @throws ClassNotFoundException to a higher level because the Exception can't be handled here
+     */
     public Polynomial load(String inputPath) throws IOException, ClassNotFoundException{
         FileInputStream fileInput = new FileInputStream(inputPath);
         ObjectInputStream objectInput = new ObjectInputStream(fileInput);
