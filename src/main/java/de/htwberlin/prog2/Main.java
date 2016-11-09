@@ -9,16 +9,15 @@ public class Main {
     public static void main(String[] args) {
 
         Controller controll = new Controller();
-
-        try
-        {
-
+        controll.runPolynomials();
+/*
+        try {
             controll.runPolynomials();
         }
-catch(Exception e)
-{
+        catch (Exception e) {
 
-}
+        }*/
+
         PolynomialTerm[] polyTermTest1 = new PolynomialTerm[7];
         polyTermTest1[0] = new PolynomialTerm(5.0d, 0);
         polyTermTest1[1] = new PolynomialTerm(1.0d, 1);
