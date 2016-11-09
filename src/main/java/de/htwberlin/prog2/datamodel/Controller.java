@@ -5,6 +5,7 @@ import de.htwberlin.prog2.io.PolynomIo;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static Prog1Tools.IOTools.*;
@@ -23,14 +24,13 @@ public class Controller {
 
     /**
      * Method which holds the possible options a user has within this program
-     *
+     * <p>
      * Starts automatically with case 1, where the user is asked to type the values of a polynomial,
      * which later can be used to calculate with
-     *
+     * <p>
      * Exit with 0
      */
-    public void runPolynomials()
-    {
+    public void runPolynomials() {
         action = 1;
         while (action != 0) {
             switch (action) {
@@ -102,11 +102,16 @@ public class Controller {
                     break;
 
                 case 10:
-                    Polynomial loadedPolynomial = loadPolynomial();
-                    System.out.println("Das von Ihnen geladen Polynom ist: " + loadedPolynomial);
+                    try {
+                        Polynomial loadedPolynomial = loadPolynomial();
+                        System.out.println("Das von Ihnen geladen Polynom ist: " + loadedPolynomial);
+                    } catch (RuntimeException e) {
+                        System.out.println("Error. Fehler beim laden.");
+                    }
                     break;
 
-                case 0: System.exit(0);
+                case 0:
+                    System.exit(0);
                     break;
 
                 default:
@@ -148,18 +153,18 @@ public class Controller {
             String toSavePolynomialName = "";
             do {
                 toSavePolynomialName = readString("Geben Sie den Namen des Polynoms ein:  ");
-            }while (nameIsNullOrContainedInMapKeys(toSavePolynomialName));
+            } while (nameIsNullOrContainedInMapKeys(toSavePolynomialName));
 
             polynomialMap.put(toSavePolynomialName, polynomialToSave);
 
             char putInMap = readChar("Wollen Sie das Polynom speichern? j/n ");
             if (putInMap == 'j') {
                 try {
-                PolynomIo polynomIo = new PolynomIo();
-                String filePath = "./"+ toSavePolynomialName + ".poly";
+                    PolynomIo polynomIo = new PolynomIo();
+                    String filePath = "./" + toSavePolynomialName + ".poly";
                     polynomIo.save(polynomialToSave, filePath);
                 } catch (IOException e) {
-                    System.out.println("Error. Unerwarteter Fehler beim speichern. Die Antwort ist 42.");
+                    System.out.println("Error. Unerwarteter Fehler beim speichern.");
                 }
                 return;
             } else if (putInMap == 'n') {
@@ -174,28 +179,38 @@ public class Controller {
 
     /**
      * Method which loads previously saved polynomials from a file
+     * Throws RuntimeException is case of a caught Exception
      *
      * @return Loaded polynomial
      */
     private Polynomial loadPolynomial() {
-        String toLoadPolynomialName = "";
-        do {
-            toLoadPolynomialName = readString("Geben Sie den Namen des zu ladene Polynoms ein: ");
-        }while (nameIsNullOrNotInMapKeys(toLoadPolynomialName));
-
-        //polynomialMap.get(toLoadPolynomialName); <-------------------------------------HIER WEG??
         try {
+            String toLoadPolynomialName = "";
             PolynomIo polynomIo = new PolynomIo();
-            String inputPath = "./"+ toLoadPolynomialName + ".poly";
+            List<String> fileList = polynomIo.showFiles("./");
+            for (String currentFileName : fileList) {
+                System.out.println(currentFileName);
+            }
+            do {
+                toLoadPolynomialName = readString("Geben Sie den Namen des zu ladene Polynoms ein: ");
+            } while (nameIsNullOrNotInMapKeys(toLoadPolynomialName, fileList));
+
+            //polynomialMap.get(toLoadPolynomialName); <-------------------------------------HIER WEG??
+
+
+            String inputPath = "./" + toLoadPolynomialName;
             Polynomial loadedPolynomial = polynomIo.load(inputPath);
+            polynomialMap.put(toLoadPolynomialName, loadedPolynomial);
             return loadedPolynomial;
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error. Unerwarteter Fehler beim laden.");
+            throw new RuntimeException(e);
         }
-        return polynomialMap.get(toLoadPolynomialName); //<-------------------------------------HIER WEG??
+
     }
-    private boolean nameIsNullOrNotInMapKeys(String toLoadPolynomialName) {
-        return !polynomialMap.containsKey(toLoadPolynomialName) || toLoadPolynomialName.equals("");
+
+    private boolean nameIsNullOrNotInMapKeys(String toLoadPolynomialName, List<String> fileList) {
+        return !fileList.contains(toLoadPolynomialName) || toLoadPolynomialName.equals("");
     }
 
     /**

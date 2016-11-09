@@ -3,6 +3,9 @@ package de.htwberlin.prog2.io;
 import de.htwberlin.prog2.datamodel.Polynomial;
 
 import java.io.*;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by laura on 07.11.16.
@@ -43,6 +46,17 @@ public class PolynomIo {
         }
 
         return polynomialToLoad;
+    }
+
+    public List<String> showFiles(String path){
+        File dir = new File(path);
+        List<String> polyFiles = new ArrayList<>();
+        for(File currentFile : dir.listFiles()){
+            if (currentFile.getName().contains(".poly"));{
+                polyFiles.add(currentFile.getName());
+            }
+        }
+        return polyFiles;
     }
 
 }
