@@ -83,7 +83,7 @@ public class Controller {
                 case 7:
                     Polynomial polynomialToDerive = userChoosePolynomial();
                     Polynomial derivedPolynomial = polynomialToDerive.firstDerivation();
-                    System.out.println("Ergebnis der erste ableitung: " + derivedPolynomial);
+                    System.out.println("Ergebnis erste ableitung: " + derivedPolynomial);
                     savePolynomial(derivedPolynomial);
                     break;
 
@@ -98,7 +98,7 @@ public class Controller {
                     Polynomial polynomialToCalcA = userChoosePolynomial();
                     double a = readDouble("Berechnet wird die division des Polynoms durch (x - a). Geben Sie den Wert für a ein: ");
                     Map divisionByXMinusA = polynomialToCalcA.divideByXMinusA(a);
-                    System.out.println("Ergebnis von x - a ist: " + divisionByXMinusA);
+                    System.out.println("Ergebnis von division mit (x - " + a + ") ist: " + divisionByXMinusA);
                     break;
 
                 case 10:
@@ -115,7 +115,7 @@ public class Controller {
                     break;
 
                 default:
-                    System.out.println("Nein!!!Doch???Oh!!!");
+                    System.out.println("Nein!!! Doch??? Oh!");
                     System.out.println("Die Eingabe konnte nicht verarbeitet werden - probieren Sie was anderes: ");
             }
             showMenu();
@@ -123,7 +123,8 @@ public class Controller {
     }
 
     /**
-     * Menu of the polynomial Class in German
+     * Menu of the polynomial Class
+     * States the possible options the user has within this program (in German)
      */
     private void showMenu() {
         System.out.println();
@@ -145,6 +146,8 @@ public class Controller {
 
     /**
      * Method which saves polynomials in a HashMap and in a file if the user wishes so
+     * In the file option, each polynomial is being saved in a new file under nameOfThePolynomial.poly
+     * Files are being placed in the folder of this program
      *
      * @param polynomialToSave Polynomial which is being saved
      */
@@ -178,15 +181,19 @@ public class Controller {
     }
 
     /**
-     * Method which loads previously saved polynomials from a file
-     * Throws RuntimeException is case of a caught Exception
+     * Method which loads previously saved polynomials from a file (nameOfThePolynomial.poly)
+     * Files are being loaded from the folder of this program
+     * Loaded files are being saved in the HashMap (temporary, exists only as long as the program runs),
+     * so the user can use the loaded polynomial to do stuff within this program
      *
      * @return Loaded polynomial
+     * Throws RuntimeException is case of a caught Exception
      */
     private Polynomial loadPolynomial() {
         try {
             String toLoadPolynomialName = "";
             PolynomIo polynomIo = new PolynomIo();
+            System.out.println("Diese Polynome können geladen werden. Wählen Sie eins aus: ");
             List<String> fileList = polynomIo.showFiles("./");
             for (String currentFileName : fileList) {
                 System.out.println(currentFileName);
@@ -194,9 +201,6 @@ public class Controller {
             do {
                 toLoadPolynomialName = readString("Geben Sie den Namen des zu ladene Polynoms ein: ");
             } while (nameIsNullOrNotInMapKeys(toLoadPolynomialName, fileList));
-
-            //polynomialMap.get(toLoadPolynomialName); <-------------------------------------HIER WEG??
-
 
             String inputPath = "./" + toLoadPolynomialName;
             Polynomial loadedPolynomial = polynomIo.load(inputPath);
@@ -206,7 +210,6 @@ public class Controller {
             System.out.println("Error. Unerwarteter Fehler beim laden.");
             throw new RuntimeException(e);
         }
-
     }
 
     private boolean nameIsNullOrNotInMapKeys(String toLoadPolynomialName, List<String> fileList) {
@@ -230,7 +233,7 @@ public class Controller {
     }
 
     /**
-     * Method which reads coefficients from the command line and ties them to an exponent
+     * Method which reads coefficients from the command line and ties them to an exponent (which is stated to the user)
      *
      * @param exponent predefined part of a PolynomialTerm
      * @return new PolynomialTerm with coefficient from user and set exponent
