@@ -49,9 +49,10 @@ public class PolynomIo {
     }
 
     /**
+     * Method which shows which polynoms are saved as files
      *
-     * @param path
-     * @return
+     * @param path path of file
+     * @return List of polynomial files
      */
     public List<String> showFiles(String path){
         File dir = new File(path);

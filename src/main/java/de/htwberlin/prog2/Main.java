@@ -10,14 +10,8 @@ public class Main {
 
         Controller controll = new Controller();
         controll.runPolynomials();
-/*
-        try {
-            controll.runPolynomials();
-        }
-        catch (Exception e) {
 
-        }*/
-
+        /*
         PolynomialTerm[] polyTermTest1 = new PolynomialTerm[7];
         polyTermTest1[0] = new PolynomialTerm(5.0d, 0);
         polyTermTest1[1] = new PolynomialTerm(1.0d, 1);
@@ -29,6 +23,7 @@ public class Main {
         Polynomial polyTest1 = new Polynomial(polyTermTest1);
 
         polyTest1.divideByXMinusA(3);
+        */
 
         /*
        // PolynomialTerm polyTest0 = new PolynomialTerm(9.0d, 0);
