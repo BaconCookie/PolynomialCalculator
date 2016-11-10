@@ -1,8 +1,6 @@
 package de.htwberlin.prog2;
 
 import de.htwberlin.prog2.datamodel.Controller;
-import de.htwberlin.prog2.datamodel.Polynomial;
-import de.htwberlin.prog2.datamodel.PolynomialTerm;
 
 public class Main {
 

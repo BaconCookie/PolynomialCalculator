@@ -8,10 +8,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by laura on 17.10.16.
+ * @author Laura Hartgers, HTW-Berlin Matrikelnummer 556238
+ * @version 1.0
  */
 public class PolynomialTest {
 
@@ -122,6 +124,7 @@ public class PolynomialTest {
 
         assertEquals(expectedMultipliedPolynomial, actualPolynomial);
     }
+
     @Test
     public void functionValueOfX() throws Exception {
 
@@ -131,6 +134,7 @@ public class PolynomialTest {
 
         assertEquals(expectedValueOfX, actualValueOfX, 0.05d);
     }
+
     @Test
     public void divideByXMinusA() throws Exception {
         Map expectedDivisionResult = new HashMap();

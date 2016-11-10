@@ -3,10 +3,12 @@ package de.htwberlin.prog2.datamodel;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by laura on 09.10.16.
+ * @author Laura Hartgers, HTW-Berlin Matrikelnummer 556238
+ * @version 1.0
  */
 public class PolynomialTermTest {
 
@@ -15,7 +17,7 @@ public class PolynomialTermTest {
     private PolynomialTerm polynomialTermToCalculateWithTwo;
 
     @Before
-    public void setup(){
+    public void setup() {
         polyTermTest = new PolynomialTerm(1.0d, 2);
         polynomialTermToCalculateWith = new PolynomialTerm(1.0d, 2);
         polynomialTermToCalculateWithTwo = new PolynomialTerm(4.0d, 3);
@@ -38,6 +40,7 @@ public class PolynomialTermTest {
 
         assertEquals(expectedPolynomialTerm, polySubtractedTerm);
     }
+
     @Test
     public void multiply() throws Exception {
         PolynomialTerm expectedPolynomialTerm = new PolynomialTerm(4.0d, 5);

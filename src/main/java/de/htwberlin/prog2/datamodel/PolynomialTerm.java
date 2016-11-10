@@ -5,6 +5,8 @@ import java.util.Objects;
 
 /**
  * Created by laura on 09.10.16.
+ * @author Laura Hartgers, HTW-Berlin Matrikelnummer 556238
+ * @version 1.0
  */
 public class PolynomialTerm implements Serializable {
 
@@ -23,7 +25,7 @@ public class PolynomialTerm implements Serializable {
 
     /**
      * Adds termToAdd to current term
-     *
+     * <p>
      * @param termToAdd term which is added
      * @return sum of current term and termToAdd
      */
@@ -38,7 +40,7 @@ public class PolynomialTerm implements Serializable {
 
     /**
      * Subtracts termToSubtract from current term
-     *
+     * <p>
      * @param termToSubtract term which is subtracted
      * @return difference between current term and termToSubtract
      */
@@ -53,8 +55,8 @@ public class PolynomialTerm implements Serializable {
 
     /**
      * Multiplies termToMultiply with current term, with a max. newExponent of 6
-     * If the new Exponent is 7 or more and the newCoefficient also is > 0, this method throws an new IllegalArgumentException
-     *
+     * If the new Exponent is 7 or more and the newCoefficient also is bigger then 0, this method throws an new IllegalArgumentException
+     * <p>
      * @param termToMultiply term which is multiplied
      * @return new term which is the result of the multiplication of the two terms (newCoefficient, max. newExponent of 6)
      */
@@ -72,9 +74,9 @@ public class PolynomialTerm implements Serializable {
     }
 
     /**
-     * Method which derives polynomial term with a exponent > 0
+     * Method which derives polynomial term with a exponent bigger then 0
      * This method is used for the first derivation of polynomials
-     *
+     * <p>
      * @return new term which is the result of the derivation (newCoefficient, newExponent)
      */
     public PolynomialTerm derive() {
@@ -82,8 +84,7 @@ public class PolynomialTerm implements Serializable {
             double newCoefficient = this.coefficient * this.exponent;
             int newExponent = this.exponent - 1;
             return new PolynomialTerm(newCoefficient, newExponent);
-            }
-        else {
+        } else {
             return new PolynomialTerm(0.0d, 0);
         }
     }
@@ -92,7 +93,7 @@ public class PolynomialTerm implements Serializable {
         return coefficient;
     }
 
-    public void setCoefficient(Double newCoefficient){
+    public void setCoefficient(Double newCoefficient) {
         this.coefficient = newCoefficient;
     }
 

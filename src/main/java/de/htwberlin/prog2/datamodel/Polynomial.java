@@ -7,17 +7,21 @@ import java.util.Map;
 
 /**
  * Created by laura on 09.10.16.
- * Class of Polynomials
- * Indices and Exponents have the same number and are sorted from 0 to 6
+ * @author Laura Hartgers, HTW-Berlin Matrikelnummer 556238
+ * @version 1.0
+ * <p>
+ * Class of Polynomials.
+ * <p>
+ * Indices and Exponents have the same number and are sorted from 0 to 6.
  */
-public class Polynomial implements Serializable{
+public class Polynomial implements Serializable {
 
     public static final int MAX_POLYNOMIAL_GRADE_PLUS_ONE = 7; // plus one because we need the 0 too!
 
     private PolynomialTerm[] polynomialTerms;
 
     /**
-     * Constructor of Polynomial which declares & constructs an array of polynomialTerms terms (length 7)
+     * Constructor of Polynomial which declares and constructs an array of polynomialTerms terms (length 7)
      * and calls a method to fill with default values
      */
     public Polynomial() {
@@ -28,7 +32,7 @@ public class Polynomial implements Serializable{
     /**
      * Constructor of Polynomial which includes polynomial terms.
      * Checks if the grade of the polynomial term isn't too large.
-     *
+     * <p>
      * @param polynomialTerms which are included in this polynomial.
      *                        They are stored in an array. Indices hold one coefficient and exponent each.
      */
@@ -46,16 +50,16 @@ public class Polynomial implements Serializable{
         }
     }
 
-    public void change(Double newCoefficient, int exponent){
+    public void change(Double newCoefficient, int exponent) {
         PolynomialTerm termToChange = polynomialTerms[exponent];
         termToChange.setCoefficient(newCoefficient);
     }
 
     /**
-     * Method which fills polynomial terms with default values
-     * Default values are:  Coefficients 0.0d
-     * Exponents have the same number as the Indices and are sorted from 0 to 6
-     *
+     * Method which fills polynomial terms with default values.
+     * Default values are:  Coefficients 0.0d.
+     * Exponents have the same number as the Indices and are sorted from 0 to 6.
+     * <p>
      * @param polynomialTerms polynomial terms which are being filled
      * @return polynomial terms with default values
      */
@@ -67,8 +71,8 @@ public class Polynomial implements Serializable{
     }
 
     /**
-     * Method which adds the terms of two polynomials with a matching exponent
-     *
+     * Method which adds the terms of two polynomials with a matching exponent.
+     * <p>
      * @param polynomialToAdd polynomial which is being added to the current polynomial
      * @return new polynomial object which includes PolynomialTerm Array called sumOfPolynomialTerms
      */
@@ -89,8 +93,8 @@ public class Polynomial implements Serializable{
     }
 
     /**
-     * Method which subtracts the terms of two polynomials with a matching exponent
-     *
+     * Method which subtracts the terms of two polynomials with a matching exponent.
+     * <p>
      * @param polynomialToSubtract polynomial which is being subtracted from the current polynomial
      * @return new polynomial object which includes PolynomialTerm Array called subtractedPolynomialTerms
      */
@@ -111,8 +115,8 @@ public class Polynomial implements Serializable{
     }
 
     /**
-     * Method which multiplies two polynomials with a maximum final grade of six
-     *
+     * Method which multiplies two polynomials with a maximum final grade of six.
+     * <p>
      * @param polynomialToMultiply polynomial which is being multiplied with the current polynomial
      * @return new polynomial object which includes the PolynomialTerm Array called multipliedPolynomialTerms
      */
@@ -160,8 +164,8 @@ public class Polynomial implements Serializable{
     }
 
     /**
-     * Method which calculates the first derivation of the current polynomial
-     *
+     * Method which calculates the first derivation of the current polynomial.
+     * <p>
      * @return new polynomial object which includes the PolynomialTerm Array called derivedPolynomialTerms
      */
     public Polynomial firstDerivation() {
@@ -172,12 +176,12 @@ public class Polynomial implements Serializable{
             PolynomialTerm currentOwnTerm = polynomialTerms[i];
             derivedPolynomialTerms[i] = currentOwnTerm.derive();
         }
-            return new Polynomial(derivedPolynomialTerms);
+        return new Polynomial(derivedPolynomialTerms);
     }
 
     /**
-     * Method to calculate the functionValueOfX using the HornerSchema
-     *
+     * Method to calculate the functionValueOfX using the HornerSchema.
+     * <p>
      * @param valueOfX (double) value which is used instead of X, function of this value will be determined
      * @return (double) function value of x
      */
@@ -187,10 +191,10 @@ public class Polynomial implements Serializable{
     }
 
     /**
-     * Method to divide the polynomial by (x - a)
+     * Method to divide the polynomial by (x - a).
      * In case "a" has the same value as valueOfX belonging to a functionValueOfX = 0,
      * then this division will be completed with a remainder of zero.
-     *
+     * <p>
      * @param valueOfA the value of a which is placed in divisor: (x - a)
      * @return Map with result of division with x - a
      */
@@ -211,7 +215,7 @@ public class Polynomial implements Serializable{
     /**
      * Method using the principle of HornerSchema, to calculate the functionValueOfX and possibly division.
      * Only if the functionValueOfX = 0, this method can also be used to extract the outcome of a division.
-     *
+     * <p>
      * @param valueOfX (double) value which is used instead of X, function of this value will be determined
      * @return arrayToStoreValues which holds the value(s) for functionValueOfX and depending on the outcome also for the division
      */
@@ -231,8 +235,8 @@ public class Polynomial implements Serializable{
     }
 
     /**
-     * Boolean to check if exponents of two terms to add are matching
-     *
+     * Boolean to check if exponents of two terms to add are matching.
+     * <p>
      * @param currentTermToCalculateWith term to add which is found in current index of polynomial to add
      * @param currentOwnTerm             term which is found in current index of own polynomial
      * @return true if exponents are the same number

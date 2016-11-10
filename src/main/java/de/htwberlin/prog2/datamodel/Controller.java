@@ -2,7 +2,6 @@ package de.htwberlin.prog2.datamodel;
 
 import Prog1Tools.IOTools;
 import de.htwberlin.prog2.io.PolynomIo;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +11,8 @@ import static Prog1Tools.IOTools.*;
 
 /**
  * Created by laura on 03.11.16.
+ * @author Laura Hartgers, HTW-Berlin Matrikelnummer 556238
+ * @version 1.0
  */
 public class Controller {
 
@@ -23,10 +24,10 @@ public class Controller {
     }
 
     /**
-     * Method which holds the possible options a user has within this program
+     * Method which holds the possible options a user has within this program.
      * <p>
      * Starts automatically with case 1, where the user is asked to type the values of a polynomial,
-     * which later can be used to calculate with
+     * which later can be used to calculate with.
      * <p>
      * Exit with 0
      */
@@ -75,7 +76,7 @@ public class Controller {
                 case 6:
                     Polynomial polynomialToMultiplyOne = userChoosePolynomial();
                     Polynomial polynomialToMultiplyTwo = userChoosePolynomial();
-                    Polynomial multipliedPolynomial = polynomialToMultiplyOne.subtract(polynomialToMultiplyTwo);
+                    Polynomial multipliedPolynomial = polynomialToMultiplyOne.multiply(polynomialToMultiplyTwo);
                     System.out.println("Ergebnis multiplikation: " + multipliedPolynomial);
                     savePolynomial(multipliedPolynomial);
                     break;
@@ -123,14 +124,15 @@ public class Controller {
     }
 
     /**
-     * Menu of the polynomial Class
-     * States the possible options the user has within this program (in German)
+     * Menu of the polynomial Class.
+     * <p>
+     * States the possible options the user has within this program (in German).
      */
     private void showMenu() {
         System.out.println();
         System.out.println("--> Bitte entscheiden Sie sich für eine Aktion: <--");
         System.out.println(" 1   Polynom eingeben");
-        System.out.println(" 2   gespeichtere Polynome anzeigen");
+        System.out.println(" 2   Polynome im Arbeitsspeicher anzeigen");
         System.out.println(" 3   Polynom verändern");
         System.out.println(" 4   zwei Polynome addieren");
         System.out.println(" 5   zwei Polynome subtrahieren");
@@ -145,11 +147,11 @@ public class Controller {
     }
 
     /**
-     * Method which saves polynomials in a HashMap and in a file if the user wishes so
-     * In the file option, each polynomial is being saved in a new file under nameOfThePolynomial.poly
-     * Files are being placed in the folder of this program
-     *
-     * @param polynomialToSave Polynomial which is being saved
+     * Method which saves polynomials in a HashMap and in a file if the user wishes so.
+     * In the file option, each polynomial is being saved in a new file under nameOfThePolynomial.poly.
+     * Files are being placed in the folder of this program.
+     * <p>
+     * @param polynomialToSave Polynomial which is being saved.
      */
     private void savePolynomial(Polynomial polynomialToSave) {
         while (true) {
@@ -181,13 +183,13 @@ public class Controller {
     }
 
     /**
-     * Method which loads previously saved polynomials from a file (nameOfThePolynomial.poly)
-     * Files are being loaded from the folder of this program
+     * Method which loads previously saved polynomials from a file (nameOfThePolynomial.poly).
+     * Files are being loaded from the folder of this program.
      * Loaded files are being saved in the HashMap (temporary, exists only as long as the program runs),
-     * so the user can use the loaded polynomial to do stuff within this program
-     *
+     * so the user can use the loaded polynomial to do stuff within this program.
+     * <p>
      * @return Loaded polynomial
-     * Throws RuntimeException is case of a caught Exception
+     * @throws RuntimeException in case of a caught Exception
      */
     private Polynomial loadPolynomial() {
         try {
@@ -217,9 +219,9 @@ public class Controller {
     }
 
     /**
-     * Method to let the user choose which polynomial should be selected for use
-     * Method needs the user to type in the name of the polynomial (Text for user is in German)
-     *
+     * Method to let the user choose which polynomial should be selected for use.
+     * Method needs the user to type in the name of the polynomial (Text for user is in German).
+     * <p>
      * @return the chosen polynomial
      */
     private Polynomial userChoosePolynomial() {
@@ -233,8 +235,8 @@ public class Controller {
     }
 
     /**
-     * Method which reads coefficients from the command line and ties them to an exponent (which is stated to the user)
-     *
+     * Method which reads coefficients from the command line and ties them to an exponent (which is stated to the user).
+     * <p>
      * @param exponent predefined part of a PolynomialTerm
      * @return new PolynomialTerm with coefficient from user and set exponent
      */
